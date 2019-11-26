@@ -1,54 +1,92 @@
-﻿using lab1;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace ConsoleApp1
+namespace _3laba
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Лабораторная №1 - Инкапсуляция");
-            Console.WriteLine("Выполнил - Афанасьев Евгений");
+	class Program
+	{
+		public static Figure[] figures =
+		{
+			new Rectangle()
+			{
+				 Name = "Квадрат",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(30, 30),
+				 Width = 50, Height = 50,
+			},
 
-            lab1.Complex a = new lab1.Complex() { Real = 3, Imag = 4 };
-            lab1.Complex b = new lab1.Complex() { Real = 5, Imag = 7 };
+			new Circle()
+			{
+				 Name = "Круг",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(200, 200),
+				 Radius = 70,
+			},
 
-            a.Add(b);
-            Console.WriteLine(" Сложение " );
-            Console.WriteLine("a = {0} + {1}i", a.Real, a.Imag);
-            a = new lab1.Complex() { Real = 3, Imag = 4 };
-            b = new lab1.Complex() { Real = 2, Imag = 8 };
+			new Trapezoid()
+			{
+				 Name = "Трапеция",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(333, 333),
+			},
 
-            b.Substract(a);
-            Console.WriteLine(" Вычитание ");
-            Console.WriteLine("b = {0} + {1}i", b.Real, b.Imag);
-            a = new lab1.Complex() { Real = 3, Imag = 4 };
-            b = new lab1.Complex() { Real = 2, Imag = 8 };
+			new RegularDecagon()
+			{
+				 Name = "Правильный Десятиугольник",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(500, 700),
+				 Radius = 100
+			},
 
-            a.Multiply(b);
-            Console.WriteLine(" Умножение ");
-            Console.WriteLine("a = {0} + {1}i", a.Real, a.Imag);
-            a = new lab1.Complex() { Real = 2, Imag = 0.4 };
-            b = new lab1.Complex() { Real = 5, Imag = 3 };
+			new RegularPentagon()
+			{
+				 Name = "Правильный Пятиугольник",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(700, 200),
+				 Radius = 100,
+			},
 
-            b.Divide(a);
-            Console.WriteLine(" Деление ");
-            Console.WriteLine("b = {0} + {1}i", b.Real, b.Imag);
+			new Rhombus()
+			{
+				 Name = "Ромб",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(900, 500),
+				 DiagX = 70, DiagY = 100,
+			},
 
-			Student ns = new Student();
-			Student ns1 = new Student();
+			new Triangle()
+			{
+				 Name = "Треугольник",
+				 Color = System.Drawing.Color.DarkRed,
+				 Position = new System.Drawing.Point(200, 650),
+				 SideA = 2, SideB = 3, SideC = 4,
+			},
+	};
+		static void Main(string[] args)
+		{
+			Console.WriteLine("Лабораторная работа №3");
+			Console.WriteLine("Выполнил - Афанасьев Евгений");
+			Form frm = new Form()
+			{
+				Text = "Лабораторная работа №3 - полиморфизм. Выполнил - Афанасьев Евгений",
+				Size = new System.Drawing.Size(1280, 900),
+				StartPosition = FormStartPosition.CenterScreen,
+			};
 
-
-			ns.MashUp(ns1);
-			Console.WriteLine("ns = Имя студента : {0} | Пол  : {1} | Возраст : {2} | Цвет волос : {3} ", ns.name, ns.sex, ns.age, ns.haircolor);
-		
-			Console.ReadLine();
+			frm.Paint += Frm_Paint;
+			Application.Run(frm);
 		}
-        
-    }
-    
+
+		private static void Frm_Paint(object sender, PaintEventArgs e)
+		{
+			foreach (Figure f in figures)
+			{
+				f.Draw(e.Graphics);
+			}
+		}
+	}
 }
